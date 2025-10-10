@@ -1,7 +1,8 @@
 import React from "react";
+import { Facebook, Instagram, Twitter } from "lucide-react";
+
 import MainLogo from "../MainLogo";
 import { Typography } from "../ui/typography";
-import { Facebook, Instagram, Twitter } from "lucide-react";
 import { FooterLinks, PaymentsMethods } from "./constant";
 
 const Footer = () => {

@@ -9,9 +9,9 @@ const typographyVariants = cva(
   {
     variants: {
       variant: {
-        h1: "text-4xl font-extrabold tracking-tight lg:text-5xl",
+        h1: "text-4xl font-bold tracking-tight",
         h2: "text-3xl leading-none font-bold tracking-[0%]",
-        h3: "text-2xl font-semibold tracking-tight",
+        h3: "text-2xl font-bold tracking-tight",
         h4: "text-xl font-semibold tracking-tight",
         h5: "text-lg font-semibold tracking-tight",
         h6: "text-base font-semibold tracking-tight",
@@ -71,7 +71,7 @@ function Typography({
   VariantProps<typeof typographyVariants> & {
     asChild?: boolean;
   }) {
-  const Comp = asChild ? Slot : variant?.startsWith("h") ? variant : "p";
+  const Comp = asChild ? Slot : variant?.startsWith("h") ? variant : "span";
 
   return (
     <Comp
