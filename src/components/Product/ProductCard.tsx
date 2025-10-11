@@ -4,9 +4,16 @@ import { Typography } from "../ui/typography";
 import { Button } from "../ui/button";
 import { PlusIcon } from "lucide-react";
 
-const ProductCard = () => {
+interface ProductCardProps {
+  onClick?: () => void;
+}
+
+const ProductCard = ({ onClick }: ProductCardProps) => {
   return (
-    <div className="border solid rounded-xl max-w-70">
+    <div
+      className="border solid rounded-xl max-w-70 cursor-pointer"
+      onClick={onClick}
+    >
       <Image
         width={280}
         height={1}

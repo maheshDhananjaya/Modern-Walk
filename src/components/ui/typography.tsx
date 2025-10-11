@@ -16,7 +16,7 @@ const typographyVariants = cva(
         h5: "text-lg font-semibold tracking-tight",
         h6: "text-base font-semibold tracking-tight",
         small: "text-xs font-medium leading-none",
-        base: "text-base font-inter font-normal weight-normal",
+        base: "text-base font-inter font-normal weight-semiBold leading-normal",
         p: "leading-7 [&:not(:first-child)]:mt-6",
       },
       align: {

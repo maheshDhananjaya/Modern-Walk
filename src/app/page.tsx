@@ -1,10 +1,16 @@
+"use client";
+import { useRouter } from "next/navigation";
+import { ArrowRight, Mail } from "lucide-react";
+
 import ProductCard from "@/components/Product/ProductCard";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
-import { ArrowRight, Mail } from "lucide-react";
-import Image from "next/image";
 
 export default function Home() {
+  const router = useRouter();
+  const handleAllCategoriesClick = () => {
+    router.push("/product");
+  };
   return (
     <div className="flex min-h-screen flex-col">
       <div className="px-30 py-32">
@@ -93,7 +99,11 @@ export default function Home() {
       <div className="px-30 pb-32">
         <div className="flex flex-row justify-between items-center">
           <Typography>Latest Products</Typography>
-          <Button variant="link" className="text-primary">
+          <Button
+            variant="link"
+            className="text-primary"
+            onClick={handleAllCategoriesClick}
+          >
             Browse All Categories
             <ArrowRight />
           </Button>
