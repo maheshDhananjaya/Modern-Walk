@@ -10,8 +10,12 @@ const CartPage = () => {
   return (
     <div className="px-30 py-32">
       <div className="flex flex-row pb-16 gap-2.5 items-center">
-        <ProductNavPath label="Home" />
-        <ChevronRight />
+        <ProductNavPath label="Home" href="/" />
+        <ChevronRight
+          className="text-muted-foreground"
+          width={15}
+          height={15}
+        />
         <ProductNavPath label="Cart" isSelected={true} />
       </div>
       <div className="pb-16 border-b mb-16">
@@ -40,7 +44,10 @@ const CartPage = () => {
         <p className="text-3xl leading-none font-bold">You May Also Like</p>
         <div className="mt-8 grid grid-cols-4 gap-6">
           {[1, 2, 3, 4].map((item, index) => (
-           <div key={index}> <ProductCard /> </div>
+            <div key={index}>
+              {" "}
+              <ProductCard />{" "}
+            </div>
           ))}
         </div>
       </div>

@@ -1,5 +1,6 @@
 import React from "react";
 import { Search, Handbag, User } from "lucide-react";
+import Link from "next/link";
 
 import MainLogo from "../MainLogo";
 import { Button } from "../ui/button";
@@ -24,7 +25,9 @@ const Header = () => {
         <input type="text" placeholder="Search" className="outline-none" />
       </div>
       <div className="flex gap-6">
-        <Handbag />
+        <Link href={"/cart"}>
+          <Handbag />
+        </Link>
         <User />
       </div>
     </div>

@@ -12,3 +12,7 @@ export interface IProduct {
   image: string;
   rating: IProductRating;
 }
+
+export interface IProductDetail extends IProduct {
+  related: IProduct[];
+}

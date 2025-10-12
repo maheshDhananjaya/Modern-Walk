@@ -1,4 +1,4 @@
-import { IProduct } from "@/types/product/productResponse";
+import { IProduct, IProductDetail } from "@/types/product/productResponse";
 
 export const getProducts = async (category?: string): Promise<IProduct[]> => {
   const url =
@@ -14,10 +14,20 @@ export const getProducts = async (category?: string): Promise<IProduct[]> => {
   return res.json();
 };
 
-export const getProductById = async (id: Number): Promise<IProduct> => {
+export const getProductById = async (id: number): Promise<IProductDetail> => {
   const res = await fetch(`https://fakestoreapi.com/products/${id}`);
+
   if (!res.ok) {
     throw new Error("Failed to fetch product");
   }
-  return res.json();
+  const product = await res.json();
+  const relatedProductsRes = await getProducts(product.category);
+  const relatedProduct = relatedProductsRes.filter(
+    (item) => item.id !== product.id
+  );
+
+  return {
+    ...product,
+    related: relatedProduct,
+  };
 };

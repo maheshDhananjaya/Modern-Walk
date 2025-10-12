@@ -12,10 +12,13 @@ import { useCategoryStore } from "@/store/useCategoryStore";
 import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "@/lib/api";
 import { CategoryMap } from "@/data/product";
+import ProductNavPath from "@/components/Product/ProductNavPath";
 
 const ProductList = () => {
   const router = useRouter();
-  const selectedCategory = useCategoryStore((state) => state.selectedCategory);
+  const { selectedCategory, setSelectedCategory } = useCategoryStore(
+    (state) => state
+  );
 
   const { data, isLoading } = useQuery({
     queryKey: ["products", selectedCategory],
@@ -26,24 +29,20 @@ const ProductList = () => {
   const handleProductClick = () => {
     router.push("/product/1");
   };
+
+  const handleCategorySelect = (category: string) => {
+    setSelectedCategory(category);
+  };
   return (
     <div className="px-30 py-32">
       <div className="flex flex-row gap-2.5 mb-16 items-center">
-        <Typography
-          variant="small"
+        <ProductNavPath label={"Home"} href="/" />
+        <ChevronRight
           className="text-muted-foreground"
-          lineHeight={"none"}
-        >
-          Home
-        </Typography>
-        <ChevronRight />
-        <Typography
-          variant="small"
-          className="text-muted-foreground"
-          lineHeight={"none"}
-        >
-          Shop
-        </Typography>
+          width={15}
+          height={15}
+        />
+        <ProductNavPath label={"Shop"} />
       </div>
       <div className="flex flex-row justify-between items-center pb-16 border-b mb-16">
         <Typography variant="h2">Product List</Typography>
@@ -62,7 +61,10 @@ const ProductList = () => {
                 key={index}
                 className="flex flex-row items-center gap-2 p-1.5"
               >
-                <Checkbox />
+                <Checkbox
+                  checked={item === selectedCategory}
+                  onChange={() => handleCategorySelect(item)}
+                />
                 <Typography
                   key={index}
                   className="text-muted-foreground"

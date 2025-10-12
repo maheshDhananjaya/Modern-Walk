@@ -7,11 +7,11 @@ import { Button } from "@/components/ui/button";
 import ProductCard from "@/components/Product/ProductCard";
 import ProductCountr from "@/components/Product/ProductCount";
 import ProductRating from "@/components/Product/ProductRating";
-import { IProduct } from "@/types/product/productResponse";
+import { IProductDetail } from "@/types/product/productResponse";
 import { getProductById } from "@/lib/api";
 
 interface ProductDetailPageProps {
-  params: Promise<{ id: Number }>;
+  params: Promise<{ id: number }>;
 }
 
 export async function generateMetadata({ params }: ProductDetailPageProps) {
@@ -30,29 +30,29 @@ export async function generateMetadata({ params }: ProductDetailPageProps) {
 
 const ProductDetailPage = async ({ params }: ProductDetailPageProps) => {
   const { id } = await params;
-  const productData: IProduct = await getProductById(id);
+  const productData: IProductDetail = await getProductById(id);
   return (
     <div className="flex min-h-screen flex-col px-30 py-32">
       <div className="flex flex-row gap-2.5 mb-16 items-center">
-        <ProductNavPath label={"Home"} />
+        <ProductNavPath label={"Home"} href="/" />
         <ChevronRight
           className="text-muted-foreground"
           width={15}
           height={15}
         />
-        <ProductNavPath label={"Shop"} />
+        <ProductNavPath label={"Shop"} href="/product" />
         <ChevronRight
           className="text-muted-foreground"
           width={15}
           height={15}
         />
-        <ProductNavPath label={"Product category"} />
+        <ProductNavPath label={productData.category} />
         <ChevronRight
           className="text-muted-foreground"
           width={15}
           height={15}
         />
-        <ProductNavPath label={"Product Name"} isSelected />
+        <ProductNavPath label={productData.title} isSelected />
       </div>
       <div className="flex flex-row gap-6 col-span-3 mb-32 items-center">
         <div className="flex flex-col gap-2">
@@ -112,9 +112,9 @@ const ProductDetailPage = async ({ params }: ProductDetailPageProps) => {
           Related Products
         </p>
         <div className="mt-8 gap-6 grid grid-cols-4">
-          {[1, 2, 3, 4].map((item, index) => (
-            <div key={index} className="mb-4">
-              <ProductCard />
+          {productData.related.map((product) => (
+            <div key={product.id} className="mb-4">
+              <ProductCard productdata={product} />
             </div>
           ))}
         </div>
