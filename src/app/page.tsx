@@ -5,18 +5,28 @@ import { ArrowRight, Mail } from "lucide-react";
 import ProductCard from "@/components/Product/ProductCard";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
+import { useCategoryStore } from "@/store/useCategoryStore";
 
 export default function Home() {
   const router = useRouter();
-  const handleAllCategoriesClick = () => {
+  const setSelectedCategory = useCategoryStore(
+    (state) => state.setSelectedCategory
+  );
+  const handleAllCategoriesClick = (category?: string) => {
+    setSelectedCategory(category ?? "all");
     router.push("/product");
   };
+
   return (
     <div className="flex min-h-screen flex-col">
       <div className="px-30 py-32">
         <div className="flex flex-row justify-between items-center">
           <Typography>Shop By Category</Typography>
-          <Button variant="link" className="text-primary">
+          <Button
+            variant="link"
+            className="text-primary cursor-pointer"
+            onClick={() => handleAllCategoriesClick()}
+          >
             Browse All Categories
             <ArrowRight />
           </Button>
@@ -28,7 +38,12 @@ export default function Home() {
                 New Arrivals
               </Typography>
               <div className="flex items-center gap-2 text-white cursor-pointer hover:underline">
-                <span className="text-sm font-medium">Shop Now</span>
+                <span
+                  className="text-sm font-medium"
+                  onClick={() => handleAllCategoriesClick("New")}
+                >
+                  Shop Now
+                </span>
                 <ArrowRight className="w-4 h-4" />
               </div>
             </div>
@@ -41,7 +56,12 @@ export default function Home() {
                   Women’s Clothing
                 </Typography>
                 <div className="flex items-center gap-2 text-white cursor-pointer hover:underline">
-                  <span className="text-sm font-medium">Shop Now</span>
+                  <span
+                    className="text-sm font-medium"
+                    onClick={() => handleAllCategoriesClick("Women")}
+                  >
+                    Shop Now
+                  </span>
                   <ArrowRight className="w-4 h-4" />
                 </div>
               </div>
@@ -52,7 +72,12 @@ export default function Home() {
                   Men’s Clothing
                 </Typography>
                 <div className="flex items-center gap-2 text-white cursor-pointer hover:underline">
-                  <span className="text-sm font-medium">Shop Now</span>
+                  <span
+                    className="text-sm font-medium"
+                    onClick={() => handleAllCategoriesClick("Men")}
+                  >
+                    Shop Now
+                  </span>
                   <ArrowRight className="w-4 h-4" />
                 </div>
               </div>
@@ -102,7 +127,7 @@ export default function Home() {
           <Button
             variant="link"
             className="text-primary"
-            onClick={handleAllCategoriesClick}
+            onClick={() => handleAllCategoriesClick()}
           >
             Browse All Categories
             <ArrowRight />

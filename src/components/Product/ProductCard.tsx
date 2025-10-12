@@ -1,41 +1,51 @@
 import Image from "next/image";
-import React from "react";
+import { PlusIcon } from "lucide-react";
+
 import { Typography } from "../ui/typography";
 import { Button } from "../ui/button";
-import { PlusIcon } from "lucide-react";
 import ProductRating from "./ProductRating";
+import { IProduct } from "@/types/product/productResponse";
 
 interface ProductCardProps {
   onClick?: () => void;
+  productdata?: IProduct;
 }
 
-const ProductCard = ({ onClick }: ProductCardProps) => {
+const ProductCard = ({ onClick, productdata }: ProductCardProps) => {
   return (
     <div
       className="border solid rounded-xl max-w-70 cursor-pointer"
       onClick={onClick}
     >
-      <Image
-        width={280}
-        height={1}
-        src="/assets/sample.jpg"
-        alt="product Image"
-        className="object-cover w-full h-full p-4"
-      />
+      <div className="h-56">
+        <Image
+          width={250}
+          height={224}
+          src={productdata?.image || "/assets/sample.jpg"}
+          alt="product Image"
+          className="object-scale-down w-full h-full p-4"
+        />
+      </div>
 
       <div className="p-4 pt-0 flex flex-col gap-2">
-        <Typography variant="base" className="text-semiBold">
-          Men’s Cotton Jacket
+        <Typography variant="base" className="text-semiBold line-clamp-1" lineHeight={"none"}>
+          {productdata?.title}
         </Typography>
         <div className="flex flex-row justify-between items-center">
           <Typography variant="base" lineHeight={"none"}>
-            $95.00
+            {`$${productdata?.price}`}
           </Typography>
-          <ProductRating rating={4.5} color="text-muted-foreground" />
+          <ProductRating
+            rating={productdata?.rating.rate}
+            color="text-muted-foreground"
+          />
         </div>
-        <Typography variant="small" className="text-muted-foreground">
-          A timeless layering essential made from durable yet lightweight
-          cotton. This...
+        <Typography
+          variant="small"
+          className="text-muted-foreground line-clamp-2"
+          lineHeight={"none"}
+        >
+          {productdata?.description}
         </Typography>
         <Button className="w-full  mt-9">
           <PlusIcon />

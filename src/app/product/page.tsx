@@ -7,11 +7,23 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { PRODUCTS_CATEGORIES } from "@/constants/product";
 import ProductCard from "@/components/Product/ProductCard";
+import { useCategoryStore } from "@/store/useCategoryStore";
+import { useQuery } from "@tanstack/react-query";
+import { getProducts } from "@/lib/api";
+import { CategoryMap } from "@/data/product";
 
 const ProductList = () => {
   const router = useRouter();
+  const selectedCategory = useCategoryStore((state) => state.selectedCategory);
+
+  const { data, isLoading } = useQuery({
+    queryKey: ["products", selectedCategory],
+    queryFn: () =>
+      getProducts(selectedCategory ? CategoryMap[selectedCategory] : undefined),
+  });
+
   const handleProductClick = () => {
-    router.push("/product/1"); // Navigate to product details page
+    router.push("/product/1");
   };
   return (
     <div className="px-30 py-32">
@@ -63,9 +75,9 @@ const ProductList = () => {
           </div>
         </div>
         <div className="gap-6 grid grid-cols-3 col-span-3">
-          {[1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => (
-            <div key={index}>
-              <ProductCard onClick={handleProductClick} />
+          {data?.map((product) => (
+            <div key={product.id}>
+              <ProductCard onClick={handleProductClick} productdata={product} />
             </div>
           ))}
         </div>

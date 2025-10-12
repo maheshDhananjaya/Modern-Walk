@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Footer from "@/components/Footer/Footer";
 import Header from "@/components/Header/Header";
+import QueryProvider from "@/providers/QueryProvider";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -26,9 +27,11 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${inter.className} antialiased flex flex-col min-h-screen`}
       >
-        <Header />
-        <main className="flex-grow">{children}</main>
-        <Footer />
+        <QueryProvider>
+          <Header />
+          <main className="flex-grow">{children}</main>
+          <Footer />
+        </QueryProvider>
       </body>
     </html>
   );
