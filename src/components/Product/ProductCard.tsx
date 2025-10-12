@@ -3,6 +3,7 @@ import React from "react";
 import { Typography } from "../ui/typography";
 import { Button } from "../ui/button";
 import { PlusIcon } from "lucide-react";
+import ProductRating from "./ProductRating";
 
 interface ProductCardProps {
   onClick?: () => void;
@@ -17,7 +18,7 @@ const ProductCard = ({ onClick }: ProductCardProps) => {
       <Image
         width={280}
         height={1}
-        src="/sample.jpg"
+        src="/assets/sample.jpg"
         alt="product Image"
         className="p-4"
         objectFit="contain"
@@ -31,9 +32,7 @@ const ProductCard = ({ onClick }: ProductCardProps) => {
           <Typography variant="base" lineHeight={"none"}>
             $95.00
           </Typography>
-          <Typography variant="base" lineHeight={"none"}>
-            4.5/5
-          </Typography>
+          <ProductRating rating={4.5} color="text-muted-foreground"/>
         </div>
         <Typography variant="small" className="text-muted-foreground">
           A timeless layering essential made from durable yet lightweight

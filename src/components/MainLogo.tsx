@@ -1,10 +1,11 @@
 import React from "react";
-import { Typography } from "./ui/typography";
 
 const MainLogo = () => {
   return (
     <div>
-      <Typography variant={"h2"}>MW.</Typography>
+      <a href="/" className="text-3xl leading-none font-bold text-primary cursor-pointer">
+        MW.
+      </a>
     </div>
   );
 };

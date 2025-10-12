@@ -1,13 +1,13 @@
 import Image from "next/image";
 
-import ProductCount from "../Product/ProductCount";
+import ProductCountr from "../Product/ProductCount";
 
 const CartProductCard = () => {
   return (
     <div className="flex flex-row p-6 border rounded-xl items-center justify-between">
       <div>
         <Image
-          src="/cart-item.jpg"
+          src="/assets/cart-item.jpg"
           alt="Product Image"
           width={148}
           height={132}
@@ -25,7 +25,7 @@ const CartProductCard = () => {
         <p className="text-base leading-6">$99.99</p>
       </div>
       <div>
-        <ProductCount />
+        <ProductCountr />
       </div>
     </div>
   );

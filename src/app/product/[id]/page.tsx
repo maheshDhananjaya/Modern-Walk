@@ -1,9 +1,12 @@
-import ProductNavPath from "@/components/Product/ProductNavPath";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Star } from "lucide-react";
 import React from "react";
 import Image from "next/image";
+
+import ProductNavPath from "@/components/Product/ProductNavPath";
 import { Button } from "@/components/ui/button";
 import ProductCard from "@/components/Product/ProductCard";
+import ProductCountr from "@/components/Product/ProductCount";
+import ProductRating from "@/components/Product/ProductRating";
 
 const ProductDetailPage = () => {
   return (
@@ -34,7 +37,7 @@ const ProductDetailPage = () => {
           {[1, 2, 3].map((item, index) => (
             <div key={index} className="min-w-45 h-42.5 border rounded-xl">
               <Image
-                src="/pdp-small.jpg"
+                src="/assets/pdp.jpg"
                 alt="Product Image"
                 width={148}
                 height={148}
@@ -45,7 +48,7 @@ const ProductDetailPage = () => {
         </div>
         <div className="flex min-w-120 h-131 border rounded-xl">
           <Image
-            src="/pdp-large.jpg"
+            src="/assets/pdp.jpg"
             alt="Product Image"
             width={454}
             height={524}
@@ -53,16 +56,17 @@ const ProductDetailPage = () => {
           />
         </div>
         <div className="flex flex-col py-16">
-          <div className="flex flex-col gap-4 pb-8 border-b">
+          <div className="flex flex-col gap-4 pb-8 ">
             <h1 className="text-2xl font-bold">Product Name</h1>
             <p className="text-lg text-gray-600">$99.99</p>
+            <ProductRating rating={4.5} />
             <p className="text-gray-700">
               A timeless layering essential made from durable yet lightweight
               cotton. This jacket offers a clean, structured fit with just the
               right amount of stretch for all-day comfort.
             </p>
           </div>
-          <div className="flex flex-col gap-2 py-8">
+          <div className="flex flex-col gap-2 py-8 border-y">
             <p>Select Size</p>
             <div className="flex flex-row gap-3">
               {["Small", "Medium", "Large"].map((size) => (
@@ -75,19 +79,8 @@ const ProductDetailPage = () => {
               ))}
             </div>
           </div>
-          <div className="flex flex-row gap-3 items-center">
-            <div className="flex flex-row p-1 bg-muted items-center">
-              <Button variant={"outline"}>-</Button>
-              <div className="flex flex-row items-center">
-                <input
-                  type="string"
-                  className="w-12 text-center bg-muted outline-none"
-                  defaultValue={1}
-                  min={1}
-                />
-              </div>
-              <Button variant={"outline"}>+</Button>
-            </div>
+          <div className="flex flex-row gap-3 items-center py-8">
+            <ProductCountr />
             <Button className="flex-1 px-8 py-3">Add to Cart</Button>
           </div>
         </div>

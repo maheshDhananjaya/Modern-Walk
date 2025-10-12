@@ -1,9 +1,9 @@
 import React from "react";
 import { Button } from "../ui/button";
 
-const ProductCount = () => {
+const ProductCountr = () => {
   return (
-    <div className="flex flex-row p-1 bg-muted items-center">
+    <div className="flex flex-row p-1 bg-muted items-center border rounded-md">
       <Button variant={"outline"}>-</Button>
       <div className="flex flex-row items-center">
         <input
@@ -18,4 +18,4 @@ const ProductCount = () => {
   );
 };
 
-export default ProductCount;
+export default ProductCountr;
