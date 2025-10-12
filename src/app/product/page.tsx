@@ -1,6 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
+import Link from "next/link";
 
 import { Typography } from "@/components/ui/typography";
 import { Button } from "@/components/ui/button";
@@ -76,9 +77,9 @@ const ProductList = () => {
         </div>
         <div className="gap-6 grid grid-cols-3 col-span-3">
           {data?.map((product) => (
-            <div key={product.id}>
+            <Link key={product.id} href={`/product/${product.id}`}>
               <ProductCard onClick={handleProductClick} productdata={product} />
-            </div>
+            </Link>
           ))}
         </div>
       </div>

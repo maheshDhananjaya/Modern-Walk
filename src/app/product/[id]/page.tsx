@@ -7,8 +7,30 @@ import { Button } from "@/components/ui/button";
 import ProductCard from "@/components/Product/ProductCard";
 import ProductCountr from "@/components/Product/ProductCount";
 import ProductRating from "@/components/Product/ProductRating";
+import { IProduct } from "@/types/product/productResponse";
+import { getProductById } from "@/lib/api";
 
-const ProductDetailPage = () => {
+interface ProductDetailPageProps {
+  params: Promise<{ id: Number }>;
+}
+
+export async function generateMetadata({ params }: ProductDetailPageProps) {
+  const { id } = await params;
+  const productData = await getProductById(id);
+  return {
+    title: `${productData.title}`,
+    description: productData.description,
+    openGraph: {
+      title: productData.title,
+      description: productData.description,
+      images: [productData.image],
+    },
+  };
+}
+
+const ProductDetailPage = async ({ params }: ProductDetailPageProps) => {
+  const { id } = await params;
+  const productData: IProduct = await getProductById(id);
   return (
     <div className="flex min-h-screen flex-col px-30 py-32">
       <div className="flex flex-row gap-2.5 mb-16 items-center">
@@ -37,7 +59,7 @@ const ProductDetailPage = () => {
           {[1, 2, 3].map((item, index) => (
             <div key={index} className="min-w-45 h-42.5 border rounded-xl">
               <Image
-                src="/assets/sample.jpg"
+                src={productData.image || "/assets/sample.jpg"}
                 alt="Product Image"
                 width={148}
                 height={148}
@@ -48,7 +70,7 @@ const ProductDetailPage = () => {
         </div>
         <div className="flex min-w-120 h-131 border rounded-xl">
           <Image
-            src="/assets/sample.jpg"
+            src={productData.image || "/assets/sample.jpg"}
             alt="Product Image"
             width={454}
             height={524}
@@ -57,14 +79,10 @@ const ProductDetailPage = () => {
         </div>
         <div className="flex flex-col py-16">
           <div className="flex flex-col gap-4 pb-8 ">
-            <h1 className="text-2xl font-bold">Product Name</h1>
-            <p className="text-lg text-gray-600">$99.99</p>
-            <ProductRating rating={4.5} />
-            <p className="text-gray-700">
-              A timeless layering essential made from durable yet lightweight
-              cotton. This jacket offers a clean, structured fit with just the
-              right amount of stretch for all-day comfort.
-            </p>
+            <h1 className="text-2xl font-bold">{productData?.title}</h1>
+            <p className="text-lg text-gray-600">{`$${productData.price}`}</p>
+            <ProductRating rating={productData.rating.rate} />
+            <p className="text-gray-700">{productData?.description}</p>
           </div>
           <div className="flex flex-col gap-2 py-8 border-y">
             <p>Select Size</p>
@@ -87,13 +105,7 @@ const ProductDetailPage = () => {
       </div>
       <div>
         <p className="text-3xl text-primary font-bold mb-8">Product Details</p>
-        <p className="text-gray-700">
-          This jacket is crafted from high-quality cotton, ensuring durability
-          and comfort. The structured fit provides a sleek silhouette, while the
-          lightweight fabric makes it perfect for layering in any season. With
-          its versatile design, this jacket can easily transition from casual to
-          more formal occasions.
-        </p>
+        <p className="text-gray-700">{productData?.description}</p>
       </div>
       <div className="mt-32">
         <p className="text-3xl text-primary leading-none font-bold mb-4">

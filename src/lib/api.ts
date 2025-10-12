@@ -13,3 +13,11 @@ export const getProducts = async (category?: string): Promise<IProduct[]> => {
   }
   return res.json();
 };
+
+export const getProductById = async (id: Number): Promise<IProduct> => {
+  const res = await fetch(`https://fakestoreapi.com/products/${id}`);
+  if (!res.ok) {
+    throw new Error("Failed to fetch product");
+  }
+  return res.json();
+};
