@@ -36,11 +36,11 @@ const CartPage = () => {
           </Button>
         </div>
       </div>
-      <div className="flex flex-col gap-8 mt-32">
+      <div className="mt-32">
         <p className="text-3xl leading-none font-bold">You May Also Like</p>
-        <div className="flex flex-row gap-6">
+        <div className="mt-8 grid grid-cols-4 gap-6">
           {[1, 2, 3, 4].map((item, index) => (
-            <ProductCard key={index} />
+           <div key={index}> <ProductCard /> </div>
           ))}
         </div>
       </div>

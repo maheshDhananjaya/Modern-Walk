@@ -7,11 +7,11 @@ const CartProductCard = () => {
     <div className="flex flex-row p-6 border rounded-xl items-center justify-between">
       <div>
         <Image
-          src="/assets/cart-item.jpg"
+          src="/assets/sample.jpg"
           alt="Product Image"
           width={148}
           height={132}
-          className="object-fit w-full h-full p-4"
+          className="object-cover w-full h-full p-4"
         />
       </div>
       <div className="flex flex-col gap-3">

@@ -37,22 +37,22 @@ const ProductDetailPage = () => {
           {[1, 2, 3].map((item, index) => (
             <div key={index} className="min-w-45 h-42.5 border rounded-xl">
               <Image
-                src="/assets/pdp.jpg"
+                src="/assets/sample.jpg"
                 alt="Product Image"
                 width={148}
                 height={148}
-                className="object-fit w-full h-full p-4"
+                className="object-cover w-full h-full p-4"
               />
             </div>
           ))}
         </div>
         <div className="flex min-w-120 h-131 border rounded-xl">
           <Image
-            src="/assets/pdp.jpg"
+            src="/assets/sample.jpg"
             alt="Product Image"
             width={454}
             height={524}
-            className="object-fit w-full h-full p-4"
+            className="object-cover w-full h-full p-4"
           />
         </div>
         <div className="flex flex-col py-16">

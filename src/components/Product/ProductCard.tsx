@@ -20,8 +20,7 @@ const ProductCard = ({ onClick }: ProductCardProps) => {
         height={1}
         src="/assets/sample.jpg"
         alt="product Image"
-        className="p-4"
-        objectFit="contain"
+        className="object-cover w-full h-full p-4"
       />
 
       <div className="p-4 pt-0 flex flex-col gap-2">
@@ -32,7 +31,7 @@ const ProductCard = ({ onClick }: ProductCardProps) => {
           <Typography variant="base" lineHeight={"none"}>
             $95.00
           </Typography>
-          <ProductRating rating={4.5} color="text-muted-foreground"/>
+          <ProductRating rating={4.5} color="text-muted-foreground" />
         </div>
         <Typography variant="small" className="text-muted-foreground">
           A timeless layering essential made from durable yet lightweight
