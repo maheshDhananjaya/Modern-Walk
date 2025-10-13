@@ -87,7 +87,7 @@ export default function Home() {
               <div className="flex items-center gap-2 text-white cursor-pointer hover:underline">
                 <span
                   className="text-sm font-medium"
-                  onClick={() => handleAllCategoriesClick("New")}
+                  onClick={() => handleAllCategoriesClick("New Arrivals")}
                 >
                   Shop Now
                 </span>

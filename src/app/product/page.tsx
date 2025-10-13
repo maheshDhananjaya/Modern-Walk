@@ -63,7 +63,7 @@ const ProductList = () => {
               >
                 <Checkbox
                   checked={item === selectedCategory}
-                  onChange={() => handleCategorySelect(item)}
+                  onCheckedChange={() => handleCategorySelect(item)}
                 />
                 <Typography
                   key={index}
