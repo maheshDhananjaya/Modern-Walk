@@ -6,3 +6,4 @@ export const PRODUCTS_CATEGORIES = [
   "Accessories",
 ];
 export const PRODUCTS_SORT_OPTIONS = ["Featured", "Best Selling"];
+export const DEFAULT_CATEGORY = "all";

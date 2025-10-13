@@ -1,8 +1,9 @@
+import { DEFAULT_CATEGORY } from "@/constants/product";
 import { IProduct, IProductDetail } from "@/types/product/productResponse";
 
 export const getProducts = async (category?: string): Promise<IProduct[]> => {
   const url =
-    category && category !== "all"
+    category && category !== DEFAULT_CATEGORY
       ? `https://fakestoreapi.com/products/category/${encodeURIComponent(
           category
         )}`

@@ -7,9 +7,23 @@ import ProductCard from "@/components/Product/ProductCard";
 import { Button } from "@/components/ui/button";
 import { Typography } from "@/components/ui/typography";
 import { useCategoryStore } from "@/store/useCategoryStore";
+import { useQuery } from "@tanstack/react-query";
+import { DEFAULT_CATEGORY } from "@/constants/product";
+import { getProducts } from "@/lib/api";
+import { IProduct, ProductCategory } from "@/types/product/productResponse";
+import { useMemo } from "react";
+import {
+  getFlashSaleProducts,
+  getLatestProducts,
+  getPopulaProduct,
+} from "@/lib/prodUtils";
 
 export default function Home() {
   const router = useRouter();
+  const { data: productData } = useQuery({
+    queryKey: ["product", DEFAULT_CATEGORY],
+    queryFn: () => getProducts(DEFAULT_CATEGORY),
+  });
   const setSelectedCategory = useCategoryStore(
     (state) => state.setSelectedCategory
   );
@@ -17,6 +31,25 @@ export default function Home() {
     setSelectedCategory(category ?? "all");
     router.push("/product");
   };
+
+  const handleShopNow = () => {
+    router.push("/product");
+  };
+
+  const flashSaleProducts = useMemo(
+    () => getFlashSaleProducts(productData),
+    [productData]
+  );
+
+  const mosetPopulaProduct = useMemo(
+    () => getPopulaProduct(productData),
+    [productData]
+  );
+
+  const latestProduct = useMemo(
+    () => getLatestProducts(productData),
+    [productData]
+  );
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -30,22 +63,29 @@ export default function Home() {
               Step into timeless fashion made for today’s lifestyle.
             </p>
             <div>
-              <Button className="px-8 py-1.5">Shop Now</Button>
+              <Button
+                className="px-8 py-1.5 cursor-pointer"
+                onClick={handleShopNow}
+              >
+                Shop Now
+              </Button>
             </div>
           </div>
           <div className="flex flex-row mt-16">
             <div className="flex flex-col gap-1">
               <p className="text-3xl leading-none font-bold">200+</p>
-              <p className="text-base leading-noraml text-muted-foreground">
+              <p className="text-base leading-normal text-muted-foreground">
                 International Brands
               </p>
             </div>
+            <div className="w-px bg-border mx-6" />
             <div className="flex flex-col gap-1">
               <p className="text-3xl leading-none font-bold">2,000+</p>
               <p className="text-base leading-noraml text-muted-foreground">
                 High-Quality Products
               </p>
             </div>
+            <div className="w-px bg-border mx-6" />
             <div className="flex flex-col gap-1">
               <p className="text-3xl leading-none font-bold">30,000+</p>
               <p className="text-base leading-noraml text-muted-foreground">
@@ -133,21 +173,21 @@ export default function Home() {
         </div>
       </div>
       <div className="px-30 pb-32">
-        <Typography variant="h3">Flash Sale</Typography>
+        <p className="text-3xl font-bold leading-none">Flash Sale</p>
         <div className="mt-8 gap-6 grid grid-cols-4">
-          {[1, 2, 3, 4].map((item, index) => (
-            <div key={index}>
-              <ProductCard />
+          {flashSaleProducts.map((product) => (
+            <div key={product.id}>
+              <ProductCard productdata={product} />
             </div>
           ))}
         </div>
       </div>
       <div className="px-30 pb-32">
-        <Typography variant="h3">Most Popular</Typography>
+        <p className="text-3xl font-bold leading-none">Most Popular</p>
         <div className="mt-8 gap-6 grid grid-cols-4">
-          {[1, 2, 3, 4].map((item, index) => (
-            <div key={index}>
-              <ProductCard />
+          {mosetPopulaProduct?.map((product) => (
+            <div key={product.id}>
+              <ProductCard productdata={product} />
             </div>
           ))}
         </div>
@@ -170,7 +210,7 @@ export default function Home() {
       </div>
       <div className="px-30 pb-32">
         <div className="flex flex-row justify-between items-center">
-          <Typography>Latest Products</Typography>
+          <p className="text-3xl font-bold leading-none">Latest Products</p>
           <Button
             variant="link"
             className="text-primary"
@@ -181,9 +221,9 @@ export default function Home() {
           </Button>
         </div>
         <div className="mt-8 gap-6 grid grid-cols-4">
-          {[1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => (
-            <div key={index}>
-              <ProductCard />
+          {latestProduct?.map((product) => (
+            <div key={product.id}>
+              <ProductCard productdata={product} />
             </div>
           ))}
         </div>

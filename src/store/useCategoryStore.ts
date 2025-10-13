@@ -1,5 +1,7 @@
 import { create } from "zustand";
 
+import { DEFAULT_CATEGORY } from "@/constants/product";
+
 interface CategoryState {
   selectedCategory: string | null;
   setSelectedCategory: (category: string) => void;
@@ -7,7 +9,7 @@ interface CategoryState {
 }
 
 export const useCategoryStore = create<CategoryState>((set) => ({
-  selectedCategory: null,
+  selectedCategory: DEFAULT_CATEGORY,
   setSelectedCategory: (category: string) => {
     set({ selectedCategory: category });
   },
