@@ -14,7 +14,7 @@ export interface IProductRating {
 export interface IProduct {
   id: number;
   title: string;
-  price: string;
+  price: number;
   description: number;
   category: ProductCategory;
   image: string;
@@ -23,4 +23,15 @@ export interface IProduct {
 
 export interface IProductDetail extends IProduct {
   related: IProduct[];
+}
+
+export enum SortKey {
+  PRICE = "price",
+  RATING = "rating",
+  POPULAR = "popular",
+}
+
+export enum SortOrder {
+  ASC = "asc",
+  DESC = "desc",
 }

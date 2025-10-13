@@ -1,5 +1,4 @@
 import { ChevronRight, Star } from "lucide-react";
-import React from "react";
 import Image from "next/image";
 
 import ProductNavPath from "@/components/Product/ProductNavPath";
@@ -9,6 +8,7 @@ import ProductCountr from "@/components/Product/ProductCount";
 import ProductRating from "@/components/Product/ProductRating";
 import { IProductDetail } from "@/types/product/productResponse";
 import { getProductById } from "@/lib/api";
+import ProductSizeSelect from "@/components/Product/ProductSizeSelect";
 
 interface ProductDetailPageProps {
   params: Promise<{ id: number }>;
@@ -84,23 +84,8 @@ const ProductDetailPage = async ({ params }: ProductDetailPageProps) => {
             <ProductRating rating={productData.rating.rate} />
             <p className="text-gray-700">{productData?.description}</p>
           </div>
-          <div className="flex flex-col gap-2 py-8 border-y">
-            <p>Select Size</p>
-            <div className="flex flex-row gap-3">
-              {["Small", "Medium", "Large"].map((size) => (
-                <div
-                  key={size}
-                  className="border rounded-md px-3 py-1.5 cursor-pointer hover:bg-gray-200"
-                >
-                  {size}
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="flex flex-row gap-3 items-center py-8">
-            <ProductCountr />
-            <Button className="flex-1 px-8 py-3">Add to Cart</Button>
-          </div>
+          <ProductSizeSelect />
+
         </div>
       </div>
       <div>

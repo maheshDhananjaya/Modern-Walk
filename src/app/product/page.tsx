@@ -1,29 +1,34 @@
 "use client";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { ChevronDown, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 import { Typography } from "@/components/ui/typography";
-import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { PRODUCTS_CATEGORIES } from "@/constants/product";
+import {
+  PRODUCT_PER_PAGE,
+  PRODUCTS_CATEGORIES,
+  PRODUCTS_SORT_OPTIONS,
+} from "@/constants/product";
 import ProductCard from "@/components/Product/ProductCard";
 import { useCategoryStore } from "@/store/useCategoryStore";
 import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "@/lib/api";
 import { CategoryMap } from "@/data/product";
 import ProductNavPath from "@/components/Product/ProductNavPath";
-import { useState } from "react";
-import {
-  Pagination,
-  PaginationContent,
-  PaginationEllipsis,
-  PaginationItem,
-  PaginationLink,
-  PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
 import ProductListSkeleton from "@/components/Product/ProductListSkelton";
+import { useProductStore } from "@/store/useProductStore";
+import { SortKey, SortOrder } from "@/types/product/productResponse";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { sortProduct } from "@/lib/prodUtils";
+import { ProductPagination } from "@/components/Product/ProductPagination";
 
 const ProductList = () => {
   const [page, setPage] = useState(1);
@@ -31,19 +36,21 @@ const ProductList = () => {
   const { selectedCategory, setSelectedCategory } = useCategoryStore(
     (state) => state
   );
+  const { sortKey, sortOrder, setSortKey, setSortOrder } = useProductStore(
+    (state) => state
+  );
 
   const { data: allProducts, isLoading } = useQuery({
     queryKey: ["products", selectedCategory],
     queryFn: () =>
       getProducts(selectedCategory ? CategoryMap[selectedCategory] : undefined),
+    select: (data) => sortProduct(sortKey, sortOrder, data),
   });
   const itemsPerPage = 10;
   const paginatedProducts = allProducts?.slice(
     (page - 1) * itemsPerPage,
     page * itemsPerPage
   );
-
-  const numberOfPages = allProducts?.length ? allProducts.length / 10 : 1;
 
   const handleProductClick = () => {
     router.push("/product/1");
@@ -52,6 +59,12 @@ const ProductList = () => {
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
     setPage(1);
+  };
+
+  const handleSortChange = (value: string) => {
+    const [key, order] = value.split("-");
+    setSortKey(key as SortKey);
+    setSortOrder(order as SortOrder);
   };
 
   if (isLoading) {
@@ -71,9 +84,23 @@ const ProductList = () => {
       </div>
       <div className="flex flex-row justify-between items-center pb-16 border-b mb-16">
         <Typography variant="h2">Product List</Typography>
-        <Button variant="outline" className="">
-          Sort <ChevronDown />
-        </Button>
+        <div>
+          <Select
+            value={`${sortKey}-${sortOrder}`}
+            onValueChange={handleSortChange}
+          >
+            <SelectTrigger className="w-[220px]">
+              <SelectValue placeholder="Sort by" />
+            </SelectTrigger>
+            <SelectContent>
+              {PRODUCTS_SORT_OPTIONS.map((option) => (
+                <SelectItem key={option.key} value={option.value}>
+                  {option.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
       </div>
       <div className="flex flex-row gap-6 grid grid-cols-4">
         <div className="flex flex-col">
@@ -111,36 +138,13 @@ const ProductList = () => {
         </div>
       </div>
       <div className="mt-32">
-        <Pagination>
-          <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setPage((p) => Math.max(p - 1, 1));
-                }}
-              />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationLink href="#" isActive>
-                {page}
-              </PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationNext
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  setPage((p) => p + 1);
-                }}
-              />
-            </PaginationItem>
-          </PaginationContent>
-        </Pagination>
+        <ProductPagination
+          currentPage={page}
+          totalPages={Math.ceil(
+            allProducts ? allProducts.length / PRODUCT_PER_PAGE : 1
+          )}
+          onPageChange={setPage}
+        />
       </div>
     </div>
   );
