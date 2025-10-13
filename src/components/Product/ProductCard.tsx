@@ -28,29 +28,27 @@ const ProductCard = ({ onClick, productdata }: ProductCardProps) => {
       </div>
 
       <div className="p-4 pt-0 flex flex-col gap-2">
-        <Typography variant="base" className="text-semiBold line-clamp-1" lineHeight={"none"}>
+        <p className="text-base font-semibold line-clamp-1 leading-none">
           {productdata?.title}
-        </Typography>
+        </p>
         <div className="flex flex-row justify-between items-center">
-          <Typography variant="base" lineHeight={"none"}>
+          <p className="text-base leading-none text-primary">
             {`$${productdata?.price}`}
-          </Typography>
+          </p>
           <ProductRating
             rating={productdata?.rating.rate}
             color="text-muted-foreground"
           />
         </div>
-        <Typography
-          variant="small"
-          className="text-muted-foreground line-clamp-2"
-          lineHeight={"none"}
-        >
+        <p className="text-xs text-muted-foreground line-clamp-2">
           {productdata?.description}
-        </Typography>
-        <Button className="w-full  mt-9">
-          <PlusIcon />
-          Add to Cart
-        </Button>
+        </p>
+        <div>
+          <Button className="w-full mt-9 px-8 py-1.5 bg-secondary text-primary hover:bg-primary hover:text-white">
+            <PlusIcon />
+            <p className="text-sm font-medium">Add to Cart</p>
+          </Button>
+        </div>
       </div>
     </div>
   );

@@ -19,7 +19,7 @@ const CartPage = () => {
         <ProductNavPath label="Cart" isSelected={true} />
       </div>
       <div className="pb-16 border-b mb-16">
-        <p className="text-3xl leading-none text-bold">Shopping Cart</p>
+        <p className="text-3xl leading-none font-bold">Shopping Cart</p>
       </div>
       <div className="grid grid-cols-3 gap-6">
         <div className="col-span-2 flex flex-col gap-4">

@@ -1,6 +1,7 @@
 "use client";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Mail } from "lucide-react";
+import Image from "next/image";
 
 import ProductCard from "@/components/Product/ProductCard";
 import { Button } from "@/components/ui/button";
@@ -19,9 +20,55 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen flex-col">
+      <div className="grid grid-cols-2 items-center bg-muted">
+        <div className="flex pl-30 pr-15 flex-col">
+          <div className="flex flex-col gap-4">
+            <p className="text-4xl leading-normal font-bold text-primary">
+              Redefining Fashion with Modern Walk
+            </p>
+            <p className="text-base leading-normal text-muted-foreground">
+              Step into timeless fashion made for today’s lifestyle.
+            </p>
+            <div>
+              <Button className="px-8 py-1.5">Shop Now</Button>
+            </div>
+          </div>
+          <div className="flex flex-row mt-16">
+            <div className="flex flex-col gap-1">
+              <p className="text-3xl leading-none font-bold">200+</p>
+              <p className="text-base leading-noraml text-muted-foreground">
+                International Brands
+              </p>
+            </div>
+            <div className="flex flex-col gap-1">
+              <p className="text-3xl leading-none font-bold">2,000+</p>
+              <p className="text-base leading-noraml text-muted-foreground">
+                High-Quality Products
+              </p>
+            </div>
+            <div className="flex flex-col gap-1">
+              <p className="text-3xl leading-none font-bold">30,000+</p>
+              <p className="text-base leading-noraml text-muted-foreground">
+                Happy Customers
+              </p>
+            </div>
+          </div>
+        </div>
+        <div>
+          <Image
+            src={"/assets/sample.jpg"}
+            height={646}
+            width={708}
+            className="rounded-bl-xl object-fill w-full"
+            alt="home page image"
+          />
+        </div>
+      </div>
       <div className="px-30 py-32">
         <div className="flex flex-row justify-between items-center">
-          <Typography>Shop By Category</Typography>
+          <p className="text-3xl leading-none font-bold text-primary">
+            Shop By Category
+          </p>
           <Button
             variant="link"
             className="text-primary cursor-pointer"
