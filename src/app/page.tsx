@@ -17,10 +17,11 @@ import {
   getLatestProducts,
   getPopulaProduct,
 } from "@/lib/prodUtils";
+import LandingPageSkeleton from "@/components/Product/LandingPageSkelton";
 
 export default function Home() {
   const router = useRouter();
-  const { data: productData } = useQuery({
+  const { data: productData, isLoading } = useQuery({
     queryKey: ["product", DEFAULT_CATEGORY],
     queryFn: () => getProducts(DEFAULT_CATEGORY),
   });
@@ -50,6 +51,10 @@ export default function Home() {
     () => getLatestProducts(productData),
     [productData]
   );
+
+  if (isLoading) {
+    return <LandingPageSkeleton />;
+  }
 
   return (
     <div className="flex min-h-screen flex-col">

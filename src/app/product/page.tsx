@@ -13,18 +13,37 @@ import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "@/lib/api";
 import { CategoryMap } from "@/data/product";
 import ProductNavPath from "@/components/Product/ProductNavPath";
+import { useState } from "react";
+import {
+  Pagination,
+  PaginationContent,
+  PaginationEllipsis,
+  PaginationItem,
+  PaginationLink,
+  PaginationNext,
+  PaginationPrevious,
+} from "@/components/ui/pagination";
+import ProductListSkeleton from "@/components/Product/ProductListSkelton";
 
 const ProductList = () => {
+  const [page, setPage] = useState(1);
   const router = useRouter();
   const { selectedCategory, setSelectedCategory } = useCategoryStore(
     (state) => state
   );
 
-  const { data, isLoading } = useQuery({
+  const { data: allProducts, isLoading } = useQuery({
     queryKey: ["products", selectedCategory],
     queryFn: () =>
       getProducts(selectedCategory ? CategoryMap[selectedCategory] : undefined),
   });
+  const itemsPerPage = 10;
+  const paginatedProducts = allProducts?.slice(
+    (page - 1) * itemsPerPage,
+    page * itemsPerPage
+  );
+
+  const numberOfPages = allProducts?.length ? allProducts.length / 10 : 1;
 
   const handleProductClick = () => {
     router.push("/product/1");
@@ -32,7 +51,13 @@ const ProductList = () => {
 
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
+    setPage(1);
   };
+
+  if (isLoading) {
+    return <ProductListSkeleton />;
+  }
+
   return (
     <div className="px-30 py-32">
       <div className="flex flex-row gap-2.5 mb-16 items-center">
@@ -78,27 +103,44 @@ const ProductList = () => {
           </div>
         </div>
         <div className="gap-6 grid grid-cols-3 col-span-3">
-          {data?.map((product) => (
+          {paginatedProducts?.map((product) => (
             <Link key={product.id} href={`/product/${product.id}`}>
               <ProductCard onClick={handleProductClick} productdata={product} />
             </Link>
           ))}
         </div>
       </div>
-      <div className="flex flex-row mt-32 gap-1.5 justify-center items-center">
-        <div className="flex flex-row items-center gap-2 px-4 py-2 cursor-pointer">
-          <ChevronLeft />
-          <p className="text small leading-normal font-medium">Previous</p>
-        </div>
-        <div>
-          <Button variant="outline" className="">
-            1
-          </Button>
-        </div>
-        <div className="flex flex-row items-center gap-2 px-4 py-2 cursor-pointer">
-          <p className="text small leading-normal font-medium">Next</p>
-          <ChevronRight />
-        </div>
+      <div className="mt-32">
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem>
+              <PaginationPrevious
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setPage((p) => Math.max(p - 1, 1));
+                }}
+              />
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationLink href="#" isActive>
+                {page}
+              </PaginationLink>
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationEllipsis />
+            </PaginationItem>
+            <PaginationItem>
+              <PaginationNext
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setPage((p) => p + 1);
+                }}
+              />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
       </div>
     </div>
   );
