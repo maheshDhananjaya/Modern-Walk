@@ -1,5 +1,6 @@
 import { ChevronRight, Star } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 import ProductNavPath from "@/components/Product/ProductNavPath";
 import ProductCard from "@/components/Product/ProductCard";
@@ -96,7 +97,9 @@ const ProductDetailPage = async ({ params }: ProductDetailPageProps) => {
         <div className="mt-8 gap-6 grid grid-cols-4">
           {productData.related.map((product) => (
             <div key={product.id} className="mb-4">
-              <ProductCard productData={product} />
+              <Link href={`/product/${product.id}`}>
+                <ProductCard productData={product} />
+              </Link>
             </div>
           ))}
         </div>

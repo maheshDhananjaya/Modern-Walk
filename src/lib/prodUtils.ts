@@ -5,7 +5,7 @@ import {
   SortOrder,
 } from "@/types/product/productResponse";
 
-export const getPopulaProduct = (products?: IProduct[]) => {
+export const getPopularProduct = (products?: IProduct[]) => {
   if (!products || products.length === 0) return [];
   return products?.filter((product) => product.rating.rate > 4.5);
 };

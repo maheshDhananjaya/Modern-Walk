@@ -21,7 +21,7 @@ const SummaryRow = ({ label, value, isTotal }: SummaryRowProps) => {
           isTotal ? "text-primary" : "text-muted-foreground"
         }`}
       >
-        {value}
+        {`$${value}`}
       </p>
     </div>
   );

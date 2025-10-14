@@ -25,6 +25,11 @@ export interface IProductDetail extends IProduct {
   related: IProduct[];
 }
 
+export interface ICartProductDetail extends IProduct {
+  size?: string;
+  qty: number;
+}
+
 export enum SortKey {
   PRICE = "price",
   RATING = "rating",

@@ -3,14 +3,19 @@ import Image from "next/image";
 
 import ProductCounter from "../Product/ProductCount";
 import { useState } from "react";
+import { ICartProductDetail } from "@/types/product/productResponse";
 
-const CartProductCard = () => {
-  const [count, setCount] = useState(1);
+interface CartProductCardProps {
+  productData?: ICartProductDetail;
+}
+
+const CartProductCard = ({ productData }: CartProductCardProps) => {
+  const [count, setCount] = useState(productData?.qty ?? 1);
   return (
     <div className="flex flex-row p-6 border rounded-xl items-center justify-between">
-      <div>
+      <div className="h-41">
         <Image
-          src="/assets/sample.jpg"
+          src={productData?.image || "/assets/sample.jpg"}
           alt="Product Image"
           width={148}
           height={132}
@@ -18,14 +23,16 @@ const CartProductCard = () => {
         />
       </div>
       <div className="flex flex-col gap-3">
-        <p className="text-bsse font-semibold text-primary">
-          Men’s Cotton Jacket
+        <p className="text-base font-semibold text-primary">
+          {productData?.title}
         </p>
         <div className="flex flex-row gap-1">
           <p className="text-xs leading-normal text-muted-foreground">Size</p>
-          <p className="text-xs leading-normal text-primary">Medium</p>
+          <p className="text-xs leading-normal text-primary">
+            {productData?.size}
+          </p>
         </div>
-        <p className="text-base leading-6">$99.99</p>
+        <p className="text-base leading-6">{`$${productData?.price}`}</p>
       </div>
       <div>
         <ProductCounter productCount={count} setCount={setCount} />

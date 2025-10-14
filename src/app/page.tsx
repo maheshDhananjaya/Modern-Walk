@@ -2,6 +2,8 @@
 import { useRouter } from "next/navigation";
 import { ArrowRight, Mail } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { useMemo } from "react";
 
 import ProductCard from "@/components/Product/ProductCard";
 import { Button } from "@/components/ui/button";
@@ -10,12 +12,10 @@ import { useCategoryStore } from "@/store/useCategoryStore";
 import { useQuery } from "@tanstack/react-query";
 import { DEFAULT_CATEGORY } from "@/constants/product";
 import { getProducts } from "@/lib/api";
-import { IProduct, ProductCategory } from "@/types/product/productResponse";
-import { useMemo } from "react";
 import {
   getFlashSaleProducts,
   getLatestProducts,
-  getPopulaProduct,
+  getPopularProduct,
 } from "@/lib/prodUtils";
 import LandingPageSkeleton from "@/components/Product/LandingPageSkelton";
 
@@ -42,8 +42,8 @@ export default function Home() {
     [productData]
   );
 
-  const mosetPopulaProduct = useMemo(
-    () => getPopulaProduct(productData),
+  const mostPopularProduct = useMemo(
+    () => getPopularProduct(productData),
     [productData]
   );
 
@@ -182,7 +182,9 @@ export default function Home() {
         <div className="mt-8 gap-6 grid grid-cols-4">
           {flashSaleProducts.map((product) => (
             <div key={product.id}>
-              <ProductCard productData={product} />
+              <Link href={`/product/${product.id}`}>
+                <ProductCard productData={product} />
+              </Link>
             </div>
           ))}
         </div>
@@ -190,9 +192,11 @@ export default function Home() {
       <div className="px-30 pb-32">
         <p className="text-3xl font-bold leading-none">Most Popular</p>
         <div className="mt-8 gap-6 grid grid-cols-4">
-          {mosetPopulaProduct?.map((product) => (
+          {mostPopularProduct?.map((product) => (
             <div key={product.id}>
-              <ProductCard productData={product} />
+              <Link href={`/product/${product.id}`}>
+                <ProductCard productData={product} />
+              </Link>
             </div>
           ))}
         </div>
@@ -228,7 +232,9 @@ export default function Home() {
         <div className="mt-8 gap-6 grid grid-cols-4">
           {latestProduct?.map((product) => (
             <div key={product.id}>
-              <ProductCard productData={product} />
+              <Link href={`/product/${product.id}`}>
+                <ProductCard productData={product} />
+              </Link>
             </div>
           ))}
         </div>
