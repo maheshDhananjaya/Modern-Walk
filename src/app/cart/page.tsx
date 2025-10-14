@@ -13,6 +13,11 @@ import { DEFAULT_CATEGORY } from "@/constants/product";
 import { getProducts } from "@/lib/api";
 import Link from "next/link";
 import { CartPageSkeleton } from "@/components/Product/CartPageSkelton";
+import {
+  getLocalStorage,
+  LOCAL_STORAGE_KEYS,
+  setLocalStorage,
+} from "@/lib/storage";
 
 const CartPage = () => {
   const [cartData, setCartData] = useState<any>(null);
@@ -22,11 +27,11 @@ const CartPage = () => {
     select: (data) => data.slice(0, 4),
   });
   useEffect(() => {
-    const existingCartData = localStorage.getItem("cart_data");
+    const existingCartData = getLocalStorage(LOCAL_STORAGE_KEYS.CART_DATA);
     if (existingCartData) {
       setCartData(JSON.parse(existingCartData));
     } else {
-      localStorage.setItem("cart_data", JSON.stringify(mockCartData));
+      setLocalStorage(LOCAL_STORAGE_KEYS.CART_DATA, mockCartData);
       setCartData(mockCartData);
     }
   }, []);
