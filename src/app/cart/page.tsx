@@ -29,7 +29,7 @@ const CartPage = () => {
   useEffect(() => {
     const existingCartData = getLocalStorage(LOCAL_STORAGE_KEYS.CART_DATA);
     if (existingCartData) {
-      setCartData(JSON.parse(existingCartData));
+      setCartData(existingCartData);
     } else {
       setLocalStorage(LOCAL_STORAGE_KEYS.CART_DATA, mockCartData);
       setCartData(mockCartData);
