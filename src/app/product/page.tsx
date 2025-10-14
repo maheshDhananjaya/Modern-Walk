@@ -132,7 +132,7 @@ const ProductList = () => {
         <div className="gap-6 grid grid-cols-3 col-span-3">
           {paginatedProducts?.map((product) => (
             <Link key={product.id} href={`/product/${product.id}`}>
-              <ProductCard onClick={handleProductClick} productdata={product} />
+              <ProductCard onClick={handleProductClick} productData={product} />
             </Link>
           ))}
         </div>

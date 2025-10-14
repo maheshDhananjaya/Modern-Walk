@@ -7,14 +7,12 @@ interface ProductCounterProps {
   setCount: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const ProductCountr = ({ productCount, setCount }: ProductCounterProps) => {
-  console.log("productCount", productCount);
-
+const ProductCounter = ({ productCount, setCount }: ProductCounterProps) => {
   const handleIncrement = () => {
     setCount((count) => count + 1);
   };
-  const handleDesctiment = () => {
-    setCount((count) => Math.max(count - 1, 0));
+  const handleDecrement = () => {
+    setCount((count) => Math.max(count - 1, 1));
   };
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,7 +23,7 @@ const ProductCountr = ({ productCount, setCount }: ProductCounterProps) => {
   };
   return (
     <div className="flex flex-row p-1 bg-muted items-center border rounded-md">
-      <Button variant={"outline"} onClick={handleDesctiment}>
+      <Button variant={"outline"} onClick={handleDecrement}>
         -
       </Button>
       <div className="flex flex-row items-center">
@@ -44,4 +42,4 @@ const ProductCountr = ({ productCount, setCount }: ProductCounterProps) => {
   );
 };
 
-export default ProductCountr;
+export default ProductCounter;

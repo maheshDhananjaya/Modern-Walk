@@ -182,7 +182,7 @@ export default function Home() {
         <div className="mt-8 gap-6 grid grid-cols-4">
           {flashSaleProducts.map((product) => (
             <div key={product.id}>
-              <ProductCard productdata={product} />
+              <ProductCard productData={product} />
             </div>
           ))}
         </div>
@@ -192,7 +192,7 @@ export default function Home() {
         <div className="mt-8 gap-6 grid grid-cols-4">
           {mosetPopulaProduct?.map((product) => (
             <div key={product.id}>
-              <ProductCard productdata={product} />
+              <ProductCard productData={product} />
             </div>
           ))}
         </div>
@@ -228,7 +228,7 @@ export default function Home() {
         <div className="mt-8 gap-6 grid grid-cols-4">
           {latestProduct?.map((product) => (
             <div key={product.id}>
-              <ProductCard productdata={product} />
+              <ProductCard productData={product} />
             </div>
           ))}
         </div>

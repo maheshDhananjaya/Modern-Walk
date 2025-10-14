@@ -1,8 +1,11 @@
+"use client";
 import Image from "next/image";
 
-import ProductCountr from "../Product/ProductCount";
+import ProductCounter from "../Product/ProductCount";
+import { useState } from "react";
 
 const CartProductCard = () => {
+  const [count, setCount] = useState(1);
   return (
     <div className="flex flex-row p-6 border rounded-xl items-center justify-between">
       <div>
@@ -25,7 +28,7 @@ const CartProductCard = () => {
         <p className="text-base leading-6">$99.99</p>
       </div>
       <div>
-        <ProductCountr />
+        <ProductCounter productCount={count} setCount={setCount} />
       </div>
     </div>
   );

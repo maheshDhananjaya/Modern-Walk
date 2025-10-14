@@ -2,9 +2,7 @@ import { ChevronRight, Star } from "lucide-react";
 import Image from "next/image";
 
 import ProductNavPath from "@/components/Product/ProductNavPath";
-import { Button } from "@/components/ui/button";
 import ProductCard from "@/components/Product/ProductCard";
-import ProductCountr from "@/components/Product/ProductCount";
 import ProductRating from "@/components/Product/ProductRating";
 import { IProductDetail } from "@/types/product/productResponse";
 import { getProductById } from "@/lib/api";
@@ -85,7 +83,6 @@ const ProductDetailPage = async ({ params }: ProductDetailPageProps) => {
             <p className="text-gray-700">{productData?.description}</p>
           </div>
           <ProductSizeSelect />
-
         </div>
       </div>
       <div>
@@ -99,7 +96,7 @@ const ProductDetailPage = async ({ params }: ProductDetailPageProps) => {
         <div className="mt-8 gap-6 grid grid-cols-4">
           {productData.related.map((product) => (
             <div key={product.id} className="mb-4">
-              <ProductCard productdata={product} />
+              <ProductCard productData={product} />
             </div>
           ))}
         </div>

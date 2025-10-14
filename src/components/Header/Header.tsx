@@ -1,13 +1,16 @@
+"use client";
 import React from "react";
-import { Search, Handbag, User } from "lucide-react";
+import { Search, User } from "lucide-react";
 import Link from "next/link";
 
 import MainLogo from "../MainLogo";
-import { Button } from "../ui/button";
 import { Typography } from "../ui/typography";
 import { HeaderNavLinks } from "./contant";
+import CartCount from "../cart/CartCount";
+import { useCartStore } from "@/store/useCartStrore";
 
 const Header = () => {
+  const { cartItemCount } = useCartStore((state) => state);
   return (
     <div className="flex items-center justify-between border-b py-8 px-30">
       <div>
@@ -26,7 +29,7 @@ const Header = () => {
       </div>
       <div className="flex gap-6">
         <Link href={"/cart"}>
-          <Handbag />
+          <CartCount count={cartItemCount} />
         </Link>
         <User />
       </div>
