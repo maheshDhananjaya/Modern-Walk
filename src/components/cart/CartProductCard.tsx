@@ -12,7 +12,7 @@ interface CartProductCardProps {
 const CartProductCard = ({ productData }: CartProductCardProps) => {
   const [count, setCount] = useState(productData?.qty ?? 1);
   return (
-    <div className="flex flex-row p-6 border rounded-xl items-center justify-between">
+    <div className="flex flex-row p-6 border rounded-xl items-center justify-between hover:border-primary">
       <div className="h-41">
         <Image
           src={productData?.image || "/assets/sample.jpg"}

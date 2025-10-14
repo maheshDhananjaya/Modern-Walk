@@ -1,13 +1,13 @@
 import { DEFAULT_CATEGORY } from "@/constants/product";
 import { IProduct, IProductDetail } from "@/types/product/productResponse";
 
+const BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
 export const getProducts = async (category?: string): Promise<IProduct[]> => {
   const url =
     category && category !== DEFAULT_CATEGORY
-      ? `https://fakestoreapi.com/products/category/${encodeURIComponent(
-          category
-        )}`
-      : "https://fakestoreapi.com/products";
+      ? `${BASE_URL}/products/category/${encodeURIComponent(category)}`
+      : `${BASE_URL}/products`;
   const res = await fetch(url);
   if (!res.ok) {
     throw new Error("Failed to fetch products");
@@ -16,7 +16,7 @@ export const getProducts = async (category?: string): Promise<IProduct[]> => {
 };
 
 export const getProductById = async (id: number): Promise<IProductDetail> => {
-  const res = await fetch(`https://fakestoreapi.com/products/${id}`);
+  const res = await fetch(`${BASE_URL}/products/${id}`);
 
   if (!res.ok) {
     throw new Error("Failed to fetch product");
