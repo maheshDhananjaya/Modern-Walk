@@ -1,4 +1,4 @@
-# Next.js E-commerce Project
+# Modern-Walk E-commerce Project
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).  
 It includes **Zustand** for state management, **React Query** for API fetching, and **shadcn/ui** for UI components.
@@ -7,11 +7,13 @@ It includes **Zustand** for state management, **React Query** for API fetching, 
 
 ## Features
 
-- Landing page with category tiles  
+- Landing page with category tiles and different product categories  
 - Product listing page with filtering, sorting, and pagination  
 - Product detail page (PDP) with SSR for SEO  
-- Shopping cart with localStorage persistence  
-- Related products and order summary  
+- Shopping cart with localStorage persistence, Related products and order summary
+- According to current implementation when click the product card or click add to cart, this will navigate to PDP page
+- In PDP page, added a validation to select size before adding to cart
+- Zustand for state management
 - Tailwind CSS + shadcn/ui for styling  
 - API fetching using React Query  
 
