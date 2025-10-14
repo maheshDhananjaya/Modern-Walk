@@ -251,17 +251,19 @@ export default function Home() {
             </Typography>
           </div>
           <div className="flex flex-col gap-4">
-            <div className="flex flex-row items-center border rounded-md bg-muted min-w-100 py-2.5 px-3">
+            <div className="flex flex-row items-center border-none rounded-md bg-input min-w-100 py-2.5 px-3">
               <Mail className="mx-2 w-4 h-4" />
-              <Typography
-                className="text-muted-foreground"
-                lineHeight={"none"}
-                variant={"base"}
-              >
-                Enter your email
-              </Typography>
+              <input
+                type="text"
+                placeholder="Enter your email address"
+                className="outline-none"
+              />
             </div>
-            <Button className="bg-white text-black min-w-100">Subscribe</Button>
+            <Button className="bg-white text-black min-w-100 py-1.5 px-8 hover:bg-white hover:test-black transition-color cursor-pointer">
+              <p className="text-sm font-medium text-secondary-foreground">
+                Subscribe
+              </p>
+            </Button>
           </div>
         </div>
       </div>
