@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const LOCAL_STORAGE_KEYS = {
   CART_DATA: "cartData",
 } as const;

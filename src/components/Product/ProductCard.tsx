@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { PlusIcon } from "lucide-react";
 
-import { Typography } from "../ui/typography";
 import { Button } from "../ui/button";
 import ProductRating from "./ProductRating";
 import { IProduct } from "@/types/product/productResponse";
